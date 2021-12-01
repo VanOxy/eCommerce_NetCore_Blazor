@@ -29,7 +29,10 @@ namespace Plugins.DataStore.InMemory
         {
             if (categories.Any(x => x.Name.Equals(category.Name, StringComparison.OrdinalIgnoreCase))) return;
 
-            category.CategoryId = categories.Max(x => x.CategoryId) + 1;
+            if (categories != null && categories.Count > 0)
+                category.CategoryId = categories.Max(x => x.CategoryId) + 1;
+            else
+                category.CategoryId = 1;
 
             categories.Add(category);
         }
