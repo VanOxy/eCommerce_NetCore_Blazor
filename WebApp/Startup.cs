@@ -32,6 +32,7 @@ namespace WebApp
             services.AddSingleton<WeatherForecastService>();
 
             services.AddScoped<ICategoryRepository, CategoryInMemoryRepository>();
+
             services.AddTransient<IViewCategoriesUseCase, ViewCategoriesUseCase>();
             services.AddTransient<IAddCategoryUseCase, AddCategoryUseCase>();
             services.AddTransient<IEditCategoryUseCase, EditCategoryUseCase>();
