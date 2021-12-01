@@ -1,0 +1,54 @@
+﻿@page "/categories"
+@inject NavigationManager NavigationManager
+@inject UseCases.IViewCategoriesUseCase ViewCategoriesUseCase
+
+<h3>CategoriesComponent</h3>
+
+@if (categories != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in categories)
+            {
+                <tr>
+                    <td>@category.Name</td>
+                    <td>@category.Description</td>
+                    <td><button type="button" class="btn btn-link" @onclick="() => OnClickEditCategory(category)">Edit</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div>
+        <button type="button" @onclick="OnClickAddCategory" class="btn btn-primary">Add Category</button>
+    </div>
+
+}
+
+@code {
+    private List<Category> categories;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        categories = ViewCategoriesUseCase.Execute()?.ToList();
+    }
+
+    private void OnClickAddCategory()
+    {
+        NavigationManager.NavigateTo("/addcategory");
+    }
+
+    private void OnClickEditCategory(Category category)
+    {
+        NavigationManager.NavigateTo($"/editcategory/{category.CategoryId}");
+    }
+}
