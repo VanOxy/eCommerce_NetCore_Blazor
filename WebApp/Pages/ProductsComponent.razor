@@ -20,9 +20,9 @@
             @foreach (var product in products)
             {
                 <tr>
-                    <td>@GetGategoryByIdUseCase.Execute(product.CategoryId)?.Name</td>
+                    <td>@GetGategoryByIdUseCase.Execute(product.CategoryId.Value)?.Name</td>
                     <td>@product.Name</td>
-                    <td>@Math.Round(product.Price, 2)</td>
+                    <td>@Math.Round(product.Price.Value, 2)</td>
                     <td>@product.Quantity</td>
                     <td>
                         <button type="button" class="btn btn-link">Edit</button>
@@ -34,7 +34,7 @@
     </table>
 
     <div>
-        <button type="button" class="btn btn-primary">Add Product</button>
+        <button type="button" @onclick="OnClickAddProduct" class="btn btn-primary">Add Product</button>
     </div>
 
 }
@@ -52,5 +52,10 @@
     private void ListProducts()
     {
         products = ViewProductsUseCase.Execute();
+    }
+
+    private void OnClickAddProduct()
+    {
+        NavigationManager.NavigateTo("/addproduct");
     }
 }

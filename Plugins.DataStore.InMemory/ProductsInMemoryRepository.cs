@@ -8,7 +8,7 @@ using UseCases.DataStorePluginInterfaces;
 
 namespace Plugins.DataStore.InMemory
 {
-    public class ProductsInMemoryRepository : IProductsRepository
+    public class ProductsInMemoryRepository : IProductRepository
     {
         private List<Product> products;
 
@@ -26,6 +26,18 @@ namespace Plugins.DataStore.InMemory
         public IEnumerable<Product> GetProducts()
         {
             return products;
+        }
+
+        public void AddProduct(Product product)
+        {
+            if (products.Any(x => x.Name.Equals(product.Name, StringComparison.OrdinalIgnoreCase))) return;
+
+            if (products != null && products.Count > 0)
+                product.ProductId = products.Max(x => x.ProductId) + 1;
+            else
+                product.ProductId = 1;
+
+            products.Add(product);
         }
     }
 }
