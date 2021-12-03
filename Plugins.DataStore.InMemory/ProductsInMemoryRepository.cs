@@ -28,6 +28,11 @@ namespace Plugins.DataStore.InMemory
             return products;
         }
 
+        public Product GetProductById(int productId)
+        {
+            return products.FirstOrDefault(x => x.ProductId == productId);
+        }
+
         public void AddProduct(Product product)
         {
             if (products.Any(x => x.Name.Equals(product.Name, StringComparison.OrdinalIgnoreCase))) return;
@@ -38,6 +43,19 @@ namespace Plugins.DataStore.InMemory
                 product.ProductId = 1;
 
             products.Add(product);
+        }
+
+        public void UpdateProduct(Product product)
+        {
+            var productToUpdate = GetProductById(product.ProductId);
+
+            if (productToUpdate != null)
+            {
+                productToUpdate.Name = product.Name;
+                productToUpdate.CategoryId = product.CategoryId;
+                productToUpdate.Price = product.Price;
+                productToUpdate.Quantity = product.Quantity;
+            }
         }
     }
 }

@@ -1,9 +1,5 @@
 ﻿using CoreBusiness;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UseCases.DataStorePluginInterfaces
 {
@@ -11,6 +7,10 @@ namespace UseCases.DataStorePluginInterfaces
     {
         public IEnumerable<Product> GetProducts();
 
+        Product GetProductById(int productId);
+
         void AddProduct(Product product);
+
+        void UpdateProduct(Product product);
     }
 }
