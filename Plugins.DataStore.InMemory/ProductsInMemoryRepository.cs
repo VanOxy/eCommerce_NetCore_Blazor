@@ -57,5 +57,10 @@ namespace Plugins.DataStore.InMemory
                 productToUpdate.Quantity = product.Quantity;
             }
         }
+
+        public void Delete(int productId)
+        {
+            products?.Remove(GetProductById(productId));
+        }
     }
 }
