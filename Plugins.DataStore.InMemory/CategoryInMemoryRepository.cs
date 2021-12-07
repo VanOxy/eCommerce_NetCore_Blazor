@@ -25,6 +25,11 @@ namespace Plugins.DataStore.InMemory
             return categories;
         }
 
+        public Category GetCategoryById(int categoryId)
+        {
+            return categories.FirstOrDefault(x => x.CategoryId == categoryId);
+        }
+
         public void AddCategory(Category category)
         {
             if (categories.Any(x => x.Name.Equals(category.Name, StringComparison.OrdinalIgnoreCase))) return;
@@ -46,11 +51,6 @@ namespace Plugins.DataStore.InMemory
                 categoryToUpdate.Name = category.Name;
                 categoryToUpdate.Description = category.Description;
             }
-        }
-
-        public Category GetCategoryById(int categoryId)
-        {
-            return categories.FirstOrDefault(x => x.CategoryId == categoryId);
         }
 
         public void Delete(int categoryId)

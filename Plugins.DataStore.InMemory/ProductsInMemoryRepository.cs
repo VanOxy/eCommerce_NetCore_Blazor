@@ -33,6 +33,11 @@ namespace Plugins.DataStore.InMemory
             return products.FirstOrDefault(x => x.ProductId == productId);
         }
 
+        public IEnumerable<Product> GetProductsByCategoryId(int categoryId)
+        {
+            return products.Where(x => x.CategoryId == categoryId);
+        }
+
         public void AddProduct(Product product)
         {
             if (products.Any(x => x.Name.Equals(product.Name, StringComparison.OrdinalIgnoreCase))) return;
@@ -61,11 +66,6 @@ namespace Plugins.DataStore.InMemory
         public void Delete(int productId)
         {
             products?.Remove(GetProductById(productId));
-        }
-
-        public IEnumerable<Product> GetProductsByCategoryId(int categoryId)
-        {
-            return products.Where(x => x.CategoryId == categoryId);
         }
     }
 }
