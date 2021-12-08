@@ -1,6 +1,6 @@
 ﻿namespace UseCases
 {
-    public interface ISellProductUseCase
+    public interface IRecordTransactionUseCase
     {
         void Execute(string cashierName, int productId, int qty);
     }

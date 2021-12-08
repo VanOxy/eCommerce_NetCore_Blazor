@@ -8,11 +8,11 @@ using UseCases.DataStorePluginInterfaces;
 
 namespace Plugins.DataStore.InMemory
 {
-    public class ProductsInMemoryRepository : IProductRepository
+    public class ProductInMemoryRepository : IProductRepository
     {
         private List<Product> products;
 
-        public ProductsInMemoryRepository()
+        public ProductInMemoryRepository()
         {
             products = new List<Product>()
             {

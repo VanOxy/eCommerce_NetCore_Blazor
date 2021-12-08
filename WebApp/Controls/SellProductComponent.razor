@@ -35,6 +35,8 @@
     public Product SelectedProduct { get; set; }
     [Parameter]
     public EventCallback<Product> OnProductSold { get; set; }
+    [Parameter]
+    public string CashierName { get; set; }
 
     protected override void OnParametersSet()
     {
@@ -59,17 +61,24 @@
 
     private void SellProduct()
     {
-        var product = GetProductByIdUseCase.Execute(productToSell.ProductId);
 
+        if (string.IsNullOrWhiteSpace(CashierName))
+        {
+            errorMessage = "Cashier name missing...";
+            return;
+        }
+
+        var product = GetProductByIdUseCase.Execute(productToSell.ProductId);
         if (productToSell.Quantity <= 0)
         {
             errorMessage = $"The quantity has to be greater than zero.";
         }
         else if (product.Quantity > productToSell.Quantity)
         {
+
             OnProductSold.InvokeAsync(productToSell);
             errorMessage = string.Empty;
-            SellProductUseCase.Execute(productToSell.ProductId, productToSell.Quantity.Value);
+            SellProductUseCase.Execute(CashierName, productToSell.ProductId, productToSell.Quantity.Value);
         }
         else
         {

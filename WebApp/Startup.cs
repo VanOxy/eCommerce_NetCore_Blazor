@@ -32,7 +32,8 @@ namespace WebApp
             services.AddSingleton<WeatherForecastService>();
             //repositories
             services.AddScoped<ICategoryRepository, CategoryInMemoryRepository>();
-            services.AddScoped<IProductRepository, ProductsInMemoryRepository>();
+            services.AddScoped<IProductRepository, ProductInMemoryRepository>();
+            services.AddScoped<ITransactionRepository, TransactionInMemoryRepository>();
             //categories
             services.AddTransient<IViewCategoriesUseCase, ViewCategoriesUseCase>();
             services.AddTransient<IAddCategoryUseCase, AddCategoryUseCase>();
@@ -47,6 +48,9 @@ namespace WebApp
             services.AddTransient<IDeleteProductUseCase, DeleteProductUseCase>();
             services.AddTransient<IViewProductsByCategoryIdUseCase, ViewProductsByCategoryIdUseCase>();
             services.AddTransient<ISellProductUseCase, SellProductUseCase>();
+            //transactions
+            services.AddTransient<IRecordTransactionUseCase, RecordTransactionUseCase>();
+            services.AddTransient<IGetTodayTransactionUseCase, GetTodayTransactionUseCase>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

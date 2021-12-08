@@ -14,7 +14,6 @@
 
 @if (productsInCategory != null)
 {
-
     <table class="table">
         <thead>
             <tr>
@@ -52,7 +51,7 @@
         {
             selectedCategoryId = value;
             productsInCategory = ViewProductsByCategoryIdUseCase.Execute(value);
-            OnSelectProduct(null);
+            OnSelectProduct(null); // to clear SPComponent
         }
     }
 
