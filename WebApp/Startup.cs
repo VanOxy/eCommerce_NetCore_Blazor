@@ -51,6 +51,7 @@ namespace WebApp
             //transactions
             services.AddTransient<IRecordTransactionUseCase, RecordTransactionUseCase>();
             services.AddTransient<IGetTodayTransactionUseCase, GetTodayTransactionUseCase>();
+            services.AddTransient<IGetTransactionsUseCase, GetTransactionsUseCase>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
