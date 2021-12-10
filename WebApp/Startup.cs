@@ -36,10 +36,16 @@ namespace WebApp
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
-            //repositories
-            services.AddScoped<ICategoryRepository, CategoryInMemoryRepository>();
-            services.AddScoped<IProductRepository, ProductInMemoryRepository>();
-            services.AddScoped<ITransactionRepository, TransactionInMemoryRepository>();
+            // DI for In-Memory Data Store
+            //services.AddScoped<ICategoryRepository, CategoryInMemoryRepository>();
+            //services.AddScoped<IProductRepository, ProductInMemoryRepository>();
+            //services.AddScoped<ITransactionRepository, TransactionInMemoryRepository>();
+
+            // DI for Data Store
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ITransactionRepository, TransactionRepository>();
+
             //categories
             services.AddTransient<IViewCategoriesUseCase, ViewCategoriesUseCase>();
             services.AddTransient<IAddCategoryUseCase, AddCategoryUseCase>();
