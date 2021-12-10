@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Plugins.DataStore.InMemory;
+using Plugins.DataStore.SQL;
 using UseCases;
 using UseCases.DataStorePluginInterfaces;
 using WebApp.Data;
@@ -30,6 +32,10 @@ namespace WebApp
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            services.AddDbContext<MarketContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
             //repositories
             services.AddScoped<ICategoryRepository, CategoryInMemoryRepository>();
             services.AddScoped<IProductRepository, ProductInMemoryRepository>();

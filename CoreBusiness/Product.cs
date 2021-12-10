@@ -22,5 +22,8 @@ namespace CoreBusiness
 
         [Required]
         public double? Price { get; set; }
+
+        //navigation property for ef_core
+        public Category Category { get; set; }
     }
 }

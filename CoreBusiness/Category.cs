@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CoreBusiness
 {
@@ -10,5 +11,8 @@ namespace CoreBusiness
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        //navigation property for ef_core
+        public List<Product> Products { get; set; }
     }
 }
