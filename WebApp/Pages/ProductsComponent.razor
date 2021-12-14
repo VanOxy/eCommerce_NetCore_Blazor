@@ -1,4 +1,6 @@
 ﻿@page "/products"
+@attribute [Authorize(Policy = "AdminOnly")]
+
 @inject NavigationManager NavigationManager
 @inject IViewProductsUseCase ViewProductsUseCase
 @inject IGetCategoryByIdUseCase GetGategoryByIdUseCase
@@ -68,5 +70,6 @@
     private void OnClickDeleteProduct(int productId)
     {
         DeleteProductUseCase.Execute(productId);
+        ListProducts();
     }
 }

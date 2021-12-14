@@ -32,10 +32,20 @@ namespace WebApp
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+
             services.AddDbContext<MarketContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOnly", p => p.RequireClaim("Position", "Admin"));
+                options.AddPolicy("CashierOnly", p => p.RequireClaim("Position", "Cashier"));
+                /** INSERT INTO AspNetUserClaims VALUES ('6091345e-6bd9-4284-ab92-0da0ec8b3da7', 'Position', 'Cashier')
+                    INSERT INTO AspNetUserClaims VALUES ('b6f74a33-ae38-4d7f-9e46-f552c82bac4d', 'Position', 'Admin'*/
+            });
+
             // DI for In-Memory Data Store
             //services.AddScoped<ICategoryRepository, CategoryInMemoryRepository>();
             //services.AddScoped<IProductRepository, ProductInMemoryRepository>();
@@ -83,8 +93,12 @@ namespace WebApp
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });

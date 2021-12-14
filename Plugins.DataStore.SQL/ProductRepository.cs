@@ -20,6 +20,7 @@ namespace Plugins.DataStore.SQL
         public void AddProduct(Product product)
         {
             db.Products.Add(product);
+            db.SaveChanges();
         }
 
         public void Delete(int productId)
